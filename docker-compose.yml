@@ -1,0 +1,66 @@
+version: "3.9"
+
+x-db-env: &db-env
+  POSTGRES_DB: app
+  POSTGRES_USER: admin
+  POSTGRES_PASSWORD: secret
+
+x-database: &db
+  image: postgres:15-alpine
+  environment:
+    <<: *db-env
+  expose:
+    - 5432
+
+services:
+  web:
+    image: nginx:1.14-alpine
+    ports:
+      - "80:80"
+    working_dir: /etc/nginx
+    volumes:
+      - ./src:/src
+      - .web/sites:/etc/nginx/conf.d
+    links:
+      - app
+
+  app:
+    build:
+      context: .src/
+      dockerfile: Dockerfile
+    working_dir: /src
+    user: docker
+    volumes:
+      - ./src:/src
+      - .src/bash_history:/home/.bash_history
+    environment:
+      DB_CONNECTION: pgsql
+      DB_PORT: 5432
+      DB_HOST: database
+      DB_USERNAME: admin
+      DB_PASSWORD: secret
+      DB_DATABASE: app
+      HISTFILE: /home/.bash_history
+    expose:
+      - 9000
+
+  database:
+    <<: *db
+    volumes:
+      - dbData:/home/pgsql/data
+    environment:
+      <<: *db-env
+      PGDATA: /home/pgsql/data
+
+  database_for_testing:
+    <<: *db
+    tmpfs: /var/lib/postgresql
+
+  adminer:
+    image: adminer:4.8.1
+    ports:
+      - "8080:8080"
+
+volumes:
+  dbData:
+
