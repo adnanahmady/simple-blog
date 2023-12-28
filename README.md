@@ -3,6 +3,12 @@
 This is a full-stack application that brings you the
 ability to have a blog.
 
+**Caution:** to find out how to work with the application
+you need to read its readme file [on here](src/README.md).
+and then you can go to [localhost](http://localhost)
+on your browser and see the first page of the application
+running.
+
 ## Index
 
 * [Requirements](#requirements)
