@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Web\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Web\Auth\LoginRequest;
+use App\Services\Web\Auth\LoginService;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -17,14 +17,9 @@ class LoginController extends Controller
         return view('auth.login');
     }
 
-    public function store(LoginRequest $request): RedirectResponse
+    public function store(LoginService $service): RedirectResponse
     {
-        $attempt = Auth::attempt([
-            'email' => $request->email(),
-            'password' => $request->password(),
-        ]);
-
-        return $attempt ?
+        return $service->attempt() ?
             redirect('/dashboard') :
             redirect(route('web.login'))->withErrors([
                 LoginRequest::EMAIL => __('Email or password is wrong!'),

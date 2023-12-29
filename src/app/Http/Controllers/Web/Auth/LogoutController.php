@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Web\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Services\Web\Auth\LogoutService;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Auth;
 
 class LogoutController extends Controller
 {
-    public function store(): RedirectResponse
+    public function store(LogoutService $service): RedirectResponse
     {
-        Auth::logout();
+        $service->logout();
 
         return redirect(route('web.login'));
     }
