@@ -4,7 +4,7 @@
             <a href="{{ route('web.articles.show', $article) }}" class="text-blue-700 mr-2">
                 {{ $article->title() }}
             </a>
-                <span class="mr-auto">
+            <span class="mr-auto">
                 {{ $article->author->name }}
             </span>
             <span class="flex flex-align-center">
@@ -12,25 +12,36 @@
                     {{ $article->publicationDate() ?? __($article->status->title) }}
                 </span>
                 @if(auth()->user()->isAdmin())
-                    @if(!$article->publicationDate())
-                        <form action="{{ route('web.articles.approval', $article) }}" method="POST">
+                    @if(!$article->deletedAt())
+                        @if(!$article->publicationDate())
+                            <form action="{{ route('web.articles.manage', $article) }}" method="POST">
                             @csrf
-                            @method('PATCH')
+                                @method('PATCH')
                             <input type="hidden" value="1" name="approved">
                             <button
                                 type="submit"
                                 class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             >{{ __('Approve') }}</button>
                         </form>
-                    @else
-                        <form action="{{ route('web.articles.approval', $article) }}" method="POST">
+                        @else
+                            <form action="{{ route('web.articles.manage', $article) }}" method="POST">
                             @csrf
-                            @method('PATCH')
+                                @method('PATCH')
                             <input type="hidden" value="0" name="approved">
                             <button
                                 type="submit"
                                 class="flex w-full justify-center rounded-md bg-red-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
                             >{{ __('disApprove') }}</button>
+                        </form>
+                        @endif
+                    @else
+                        <form action="{{ route('web.trash.articles.restore', $article) }}" method="POST">
+                            @csrf
+                            @method('POST')
+                            <button
+                                type="submit"
+                                class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                            >{{ __('Restore') }}</button>
                         </form>
                     @endif
                 @endif

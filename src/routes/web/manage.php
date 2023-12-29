@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Web\TrashController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,14 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::name('web.')->group(function (): void {
-    Route::get('/', fn() => view('welcome'))->name('welcome');
-    include base_path('routes/web/auth.php');
-    Route::group(['middleware' => 'auth:web'], function (): void {
-        include base_path('routes/web/articles.php');
-        Route::group(
-            ['middleware' => 'admin'],
-            base_path('routes/web/manage.php')
-        );
-    });
-});
+Route::get('/trash', [TrashController::class, 'index'])
+    ->name('trash');
+Route::post('/articles/{trashedArticle}/restore', [TrashController::class, 'restore'])
+    ->name('trash.articles.restore');

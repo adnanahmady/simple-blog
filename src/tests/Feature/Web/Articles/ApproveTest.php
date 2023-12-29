@@ -24,7 +24,7 @@ class ApproveTest extends TestCase
         $this->expectException(AdminRequiredAccessException::class);
 
         $this->patch(
-            route('web.articles.approval', $article),
+            route('web.articles.manage', $article),
             ['approved' => false]
         );
     }
@@ -47,7 +47,7 @@ class ApproveTest extends TestCase
         $article = Article::factory()->create();
 
         $response = $this->patch(
-            route('web.articles.approval', $article),
+            route('web.articles.manage', $article),
             $data
         );
 
@@ -62,7 +62,7 @@ class ApproveTest extends TestCase
         $article = Article::factory()->approved()->create();
 
         $this->patch(
-            route('web.articles.approval', $article),
+            route('web.articles.manage', $article),
             ['approved' => false]
         );
 
@@ -80,7 +80,7 @@ class ApproveTest extends TestCase
         $article = Article::factory()->create();
 
         $this->patch(
-            route('web.articles.approval', $article),
+            route('web.articles.manage', $article),
             ['approved' => true]
         );
 

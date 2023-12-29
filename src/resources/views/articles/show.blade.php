@@ -36,19 +36,21 @@
                         class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                     >{{ __('Edit Article') }}</a>
                 </div>
-                <div class="my-4 py-2">
-                    <form
-                        action="{{ route('web.articles.delete', $article) }}"
-                        method="POST"
+                @if(auth()->user()->isAdmin())
+                    <div class="my-4 py-2">
+                        <form
+                            action="{{ route('web.articles.delete', $article) }}"
+                            method="POST"
                         >
-                        @csrf
-                        @method('DELETE')
-                        <button
-                            type="submit"
-                            class="flex w-full justify-center rounded-md bg-red-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
-                        >{{ __('Delete Article') }}</button>
-                    </form>
-                </div>
+                            @csrf
+                            @method('DELETE')
+                            <button
+                                type="submit"
+                                class="flex w-full justify-center rounded-md bg-red-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
+                            >{{ __('Delete Article') }}</button>
+                        </form>
+                    </div>
+                @endif
             </div>
         </div>
     </div>

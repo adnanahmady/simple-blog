@@ -12,6 +12,13 @@ class ArticleRepository
         private readonly PublicationStatusRepository $statusRepository
     ) {}
 
+    public function trash(bool $reverse = false): Collection
+    {
+        return $reverse ?
+            Article::onlyTrashed()->latest(Article::UPDATED_AT)->get() :
+            Article::onlyTrashed()->get();
+    }
+
     public function get(bool $reverse = false): Collection
     {
         return $reverse ? Article::query()

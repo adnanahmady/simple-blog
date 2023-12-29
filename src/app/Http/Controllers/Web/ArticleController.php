@@ -55,7 +55,7 @@ class ArticleController extends Controller
         return redirect(route('web.dashboard'));
     }
 
-    public function approval(
+    public function manage(
         ApproveRequest $request,
         Article $article,
         ArticleService $service

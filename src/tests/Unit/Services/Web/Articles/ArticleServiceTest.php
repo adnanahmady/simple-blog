@@ -17,6 +17,34 @@ class ArticleServiceTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_it_should_be_able_to_return_a_specific_article(): void
+    {
+        $statusRepository = new PublicationStatusRepository();
+        $repository = new ArticleRepository($statusRepository);
+        $service = new ArticleService($repository);
+        $article = Article::factory()->trashed()->create();
+
+        $service->restore(article: $article);
+
+        $this->assertDatabaseHas(Article::TABLE, [
+            Article::ID => $article->id(),
+            Article::DELETED_AT => null,
+        ]);
+    }
+
+    public function test_it_should_return_trashed_articles(): void
+    {
+        $statusRepository = new PublicationStatusRepository();
+        $repository = new ArticleRepository($statusRepository);
+        $service = new ArticleService($repository);
+        Article::factory()->create();
+        Article::factory()->trashed()->count($count = 4)->create();
+
+        $trashedArticles = $service->trash();
+
+        $this->assertCount($count, $trashedArticles);
+    }
+
     public function test_it_can_disapprove_an_articles(): void
     {
         $statusRepository = new PublicationStatusRepository();

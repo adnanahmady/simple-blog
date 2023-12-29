@@ -20,8 +20,8 @@ Route::post('/articles', [ArticleController::class, 'store'])
     ->name('articles.store');
 Route::put('/articles/{article}', [ArticleController::class, 'update'])
     ->name('articles.update');
-Route::patch('/articles/{article}', [ArticleController::class, 'approval'])
-    ->name('articles.approval')
+Route::patch('/articles/{article}', [ArticleController::class, 'manage'])
+    ->name('articles.manage')
     ->middleware('admin');
 Route::delete('/articles/{article}', [ArticleController::class, 'destroy'])
     ->name('articles.delete')

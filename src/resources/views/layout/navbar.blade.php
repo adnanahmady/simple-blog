@@ -17,13 +17,20 @@
                 <li>
                     <a href="{{ route('web.dashboard') }}"
                        class="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                       aria-current="page">Home</a>
+                       aria-current="page">{{ __('Home') }}</a>
                 </li>
                 <li>
                     <a href="{{ route('web.articles.create') }}"
                        class="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                       aria-current="page">Create Article</a>
+                       aria-current="page">{{ __('Create Article') }}</a>
                 </li>
+                @if(auth()->user()?->isAdmin())
+                    <li>
+                        <a href="{{ route('web.trash') }}"
+                           class="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                           aria-current="page">{{ __('Trash') }}</a>
+                    </li>
+                @endif
                 @auth
                     <li>
                         <form action="{{route('web.logout')}}" method="POST">

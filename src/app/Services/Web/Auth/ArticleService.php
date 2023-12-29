@@ -13,6 +13,16 @@ class ArticleService
         private readonly ArticleRepository $repository
     ) {}
 
+    public function restore(Article $article): void
+    {
+        $article->restore();
+    }
+
+    public function trash(): Collection
+    {
+        return $this->repository->trash(reverse: true);
+    }
+
     public function all(): Collection
     {
         return $this->repository->get(reverse: true);
