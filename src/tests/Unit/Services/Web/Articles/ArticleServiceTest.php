@@ -18,6 +18,27 @@ class ArticleServiceTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
+    public function it_can_update_article(): void
+    {
+        $statusRepository = new PublicationStatusRepository();
+        $repository = new ArticleRepository($statusRepository);
+        $service = new ArticleService($repository);
+        $article = Article::factory()->create();
+
+        $service->update(
+            article: $article,
+            title: $title = 'title',
+            content: $content = 'content',
+        );
+
+        $this->assertDatabaseHas(Article::TABLE, [
+            Article::ID => $article->id(),
+            Article::TITLE => $title,
+            Article::CONTENT => $content,
+        ]);
+    }
+
+    /** @test */
     public function it_can_create_article(): void
     {
         $statusRepository = new PublicationStatusRepository();

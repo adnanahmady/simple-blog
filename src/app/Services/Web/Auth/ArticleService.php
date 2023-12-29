@@ -29,4 +29,16 @@ class ArticleService
             author: $author,
         );
     }
+
+    public function update(
+        Article $article,
+        string $title,
+        string $content,
+    ): Article {
+        return $this->repository->update(
+            article: $article,
+            title: $title,
+            content: $content,
+        );
+    }
 }

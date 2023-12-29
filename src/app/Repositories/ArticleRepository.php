@@ -31,4 +31,19 @@ class ArticleRepository
             Article::STATUS => $this->statusService->draft()->id(),
         ]);
     }
+
+    public function update(
+        Article $article,
+        string $title,
+        string $content,
+    ): Article {
+        Article::query()
+            ->where(Article::ID, $article->id())
+            ->update([
+                Article::TITLE => $title,
+                Article::CONTENT => $content,
+            ]);
+
+        return $article->fresh();
+    }
 }
