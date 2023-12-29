@@ -20,7 +20,7 @@ class ArticleFactory extends Factory
     public function definition(): array
     {
         return [
-            Article::TITLE => fake()->title(),
+            Article::TITLE => fake()->text(maxNbChars: 20),
             Article::CONTENT => fake()->text(),
             Article::AUTHOR => User::factory(),
             Article::STATUS => PublicationStatus::factory(),
