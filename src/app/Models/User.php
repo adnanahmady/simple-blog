@@ -3,16 +3,28 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Traits\HasConstantAsFieldTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+/**
+ * @method int       id()
+ * @method string    name()
+ * @method string    email()
+ * @method string    password()
+ * @method string    rememberToken()
+ * @method string    emailVerifiedAt()
+ * @method \DateTime createdAt()
+ * @method \DateTime updatedAt()
+ */
 class User extends Authenticatable
 {
     use HasApiTokens;
     use HasFactory;
     use Notifiable;
+    use HasConstantAsFieldTrait;
 
     public const TABLE = 'users';
     public const ID = 'id';

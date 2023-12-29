@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Web\Auth\LoginController;
+use App\Http\Controllers\Web\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,10 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/login', [LoginController::class, 'index'])
+    ->name('login');
+Route::post('/login', [LoginController::class, 'store'])
+    ->name('login.store');
 
-Route::name('web.')->group(function (): void {
-    include base_path('routes/web/auth.php');
+Route::group(['middleware' => 'auth:web'], function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])
+        ->name('dashboard');
 });
