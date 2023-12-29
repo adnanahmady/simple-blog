@@ -15,6 +15,9 @@ up:
 	@$$(touch .src/bash_history)
 	@$(compose) up -d ${options}
 
+setup: up
+	@$(compose) exec ${mainService} php artisan migrate:refresh --seed
+
 build:
 	${MAKE} up options=$(call default,--build,${options})
 

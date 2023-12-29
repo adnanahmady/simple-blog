@@ -3,16 +3,17 @@
 This is a full-stack application that brings you the
 ability to have a blog.
 
-**Caution:** to find out how to work with the application
-you need to read its readme file [on here](src/README.md).
-and then you can go to [localhost](http://localhost)
-on your browser and see the first page of the application
-running.
+**Caution:** you can [quickly start](#quick-start) the project
+and then to find out about the application default
+users need to check [the application readme file](src/README.md).
+last but not least you can open [localhost](http://localhost) on your browser
+to see the first page of the application running.
 
 ## Index
 
 * [Requirements](#requirements)
   * [List](#requirement-list)
+* [Quick Start](#quick-start)
 * [Structure](#structure)
 * [Usage](#usage)
   * [Run the application](#run-application)
@@ -26,6 +27,24 @@ running.
 * [Telescope](#telescope)
 * [Background Jobs](#background-jobs)
 * [Postman](#postman)
+
+## Quick Start
+
+To quickly bring up the application you can use
+the `setup` command like bellow.
+
+```shell
+make setup
+```
+
+this command will bring up the `docker` environment
+and seeds default data into the database. and then
+everything thing is ready for you to explore, you
+just need to open your browser and click on
+[this like](http://localhost).
+
+now you can easily login to the application using
+provided users that are mentioned [in here](src/README.md).
 
 ## Structure
 
