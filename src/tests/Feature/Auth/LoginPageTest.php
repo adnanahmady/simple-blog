@@ -3,17 +3,27 @@
 namespace Feature\Auth;
 
 use App\Http\Controllers\Web\Auth\LoginController;
-use Illuminate\Support\MessageBag;
-use Illuminate\Support\ViewErrorBag;
+use App\Models\User;
+use App\Providers\RouteServiceProvider;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\CoversFunction;
-use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 
 #[CoversClass(LoginController::class)]
 #[CoversFunction('index')]
 class LoginPageTest extends TestCase
 {
+    /** @test */
+    public function only_unauthorized_users_can_see_login_page(): void
+    {
+        $route = route('web.login');
+        $this->be(User::factory()->create());
+
+        $response = $this->get($route);
+
+        $response->assertRedirect(RouteServiceProvider::HOME);
+    }
+
     /** @test */
     public function it_should_show_login_form(): void
     {
