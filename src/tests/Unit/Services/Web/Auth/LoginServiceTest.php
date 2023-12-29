@@ -7,8 +7,10 @@ use App\Models\User;
 use App\Services\Web\Auth\LoginService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Auth;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Tests\TestCase;
 
+#[CoversClass(LoginService::class)]
 class LoginServiceTest extends TestCase
 {
     use RefreshDatabase;

@@ -6,8 +6,10 @@ use App\Models\User;
 use App\Services\Web\Auth\LogoutService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Auth;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Tests\TestCase;
 
+#[CoversClass(LogoutService::class)]
 class LogoutServiceTest extends TestCase
 {
     use RefreshDatabase;
