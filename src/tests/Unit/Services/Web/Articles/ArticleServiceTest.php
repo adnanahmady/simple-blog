@@ -3,7 +3,9 @@
 namespace Tests\Unit\Services\Web\Articles;
 
 use App\Models\Article;
+use App\Models\User;
 use App\Repositories\ArticleRepository;
+use App\Repositories\PublicationStatusRepository;
 use App\Services\Web\Auth\ArticleService;
 use App\Services\Web\Auth\LogoutService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -16,10 +18,34 @@ class ArticleServiceTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
+    public function it_can_create_article(): void
+    {
+        $statusRepository = new PublicationStatusRepository();
+        $repository = new ArticleRepository($statusRepository);
+        $service = new ArticleService($repository);
+
+        $service->create(
+            title: $title = 'title',
+            content: $content = 'content',
+            author: $author = User::factory()->create(),
+        );
+
+        $this->assertDatabaseHas(Article::TABLE, [
+            Article::TITLE => $title,
+            Article::CONTENT => $content,
+            Article::AUTHOR => $author->id(),
+            Article::STATUS => $statusRepository->draft()->id(),
+            Article::PUBLICATION_DATE => null,
+        ]);
+    }
+
+    /** @test */
     public function it_should_provide_the_list_of_articles(): void
     {
         Article::factory()->count(2)->create();
-        $repository = new ArticleRepository();
+        $repository = new ArticleRepository(
+            new PublicationStatusRepository()
+        );
         $service = new ArticleService($repository);
 
         $list = $service->all();

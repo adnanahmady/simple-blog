@@ -8,7 +8,7 @@
                 {{ $article->author->name }}
             </span>
                 <span>
-                {{ $article->publicationDate() }}
+                {{ $article->publicationDate() ?? __($article->status->title) }}
             </span>
         </div>
         <div class="mt-4">

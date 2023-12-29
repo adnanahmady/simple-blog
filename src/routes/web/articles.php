@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Web\ArticleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,12 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::name('web.')->group(function (): void {
-    Route::get('/', fn() => view('welcome'))->name('welcome');
-    include base_path('routes/web/auth.php');
-    Route::group([
-        'middleware' => 'auth:web',
-    ], function (): void {
-        include base_path('routes/web/articles.php');
-    });
-});
+Route::get('/articles/create', [ArticleController::class, 'create'])
+    ->name('articles.create');
+Route::post('/articles', [ArticleController::class, 'store'])
+    ->name('articles.store');

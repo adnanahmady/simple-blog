@@ -17,7 +17,7 @@ return new class () extends Migration {
             $table->text(Article::CONTENT);
             $table->unsignedBigInteger(Article::AUTHOR);
             $table->unsignedBigInteger(Article::STATUS);
-            $table->timestamp(Article::PUBLICATION_DATE);
+            $table->timestamp(Article::PUBLICATION_DATE)->nullable();
             $table->timestamps();
 
             $table->foreign(Article::AUTHOR)
