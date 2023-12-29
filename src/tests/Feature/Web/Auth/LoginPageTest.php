@@ -13,8 +13,7 @@ use Tests\TestCase;
 #[CoversFunction('index')]
 class LoginPageTest extends TestCase
 {
-    /** @test */
-    public function only_unauthorized_users_can_see_login_page(): void
+    public function test_only_unauthorized_users_can_see_login_page(): void
     {
         $route = route('web.login');
         $this->be(User::factory()->create());
@@ -24,8 +23,7 @@ class LoginPageTest extends TestCase
         $response->assertRedirect(RouteServiceProvider::HOME);
     }
 
-    /** @test */
-    public function it_should_show_login_form(): void
+    public function test_it_should_show_login_form(): void
     {
         $route = route('web.login');
         $expectations = [
@@ -47,8 +45,7 @@ class LoginPageTest extends TestCase
         }
     }
 
-    /** @test */
-    public function welcome_page_should_show_login_page_link(): void
+    public function test_welcome_page_should_show_login_page_link(): void
     {
         $response = $this->get('/');
 
@@ -58,8 +55,7 @@ class LoginPageTest extends TestCase
         );
     }
 
-    /** @test */
-    public function login_should_response_ok(): void
+    public function test_login_should_response_ok(): void
     {
         $response = $this->get(route('web.login'));
 

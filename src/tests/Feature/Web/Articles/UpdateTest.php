@@ -38,9 +38,8 @@ class UpdateTest extends TestCase
         ];
     }
 
-    /** @test */
     #[DataProvider('dataProviderForDataValidation')]
-    public function data_validation(array $data, string $errorField): void
+    public function test_data_validation(array $data, string $errorField): void
     {
         $this->login();
         $article = Article::factory()->create();
@@ -54,8 +53,7 @@ class UpdateTest extends TestCase
         $response->assertSessionHasErrors([$errorField]);
     }
 
-    /** @test */
-    public function it_should_update_specified_article(): void
+    public function test_it_should_update_specified_article(): void
     {
         $this->login();
         $article = Article::factory()->create();

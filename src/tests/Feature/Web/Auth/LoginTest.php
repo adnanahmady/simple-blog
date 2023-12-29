@@ -19,8 +19,7 @@ class LoginTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    public function only_unauthorized_users_can_login(): void
+    public function test_only_unauthorized_users_can_login(): void
     {
         $user = User::factory()->create([
             User::PASSWORD => $password = 'secret',
@@ -54,9 +53,8 @@ class LoginTest extends TestCase
         ];
     }
 
-    /** @test */
     #[DataProvider('dataProviderForDataValidation')]
-    public function data_validation(array $data, string $errorKey): void
+    public function test_data_validation(array $data, string $errorKey): void
     {
         User::factory()->create($data);
 
@@ -66,8 +64,7 @@ class LoginTest extends TestCase
         $response->assertSessionHasErrors([$errorKey]);
     }
 
-    /** @test */
-    public function user_should_be_logged_in(): void
+    public function test_user_should_be_logged_in(): void
     {
         $user = User::factory()->create([
             User::PASSWORD => $password = 'secret',
@@ -82,9 +79,8 @@ class LoginTest extends TestCase
         $this->assertNotNull(Auth::user());
     }
 
-    /** @test */
     // phpcs:ignore
-    public function user_should_be_redirected_back_to_login_when_unsuccessful_login(): void
+    public function test_user_should_be_redirected_back_to_login_when_unsuccessful_login(): void
     {
         $data = [
             'email' => 'invalid@email.com',
@@ -97,9 +93,8 @@ class LoginTest extends TestCase
         $response->assertSessionHasErrors();
     }
 
-    /** @test */
     // phpcs:ignore
-    public function user_should_redirect_to_dashboard_after_successfully_logged_in(): void
+    public function test_user_should_redirect_to_dashboard_after_successfully_logged_in(): void
     {
         $user = User::factory()->create([
             User::PASSWORD => $password = 'secret',

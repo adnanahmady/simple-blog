@@ -14,8 +14,7 @@ class LogoutServiceTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    public function it_should_logout_the_user(): void
+    public function test_it_should_logout_the_user(): void
     {
         $this->be(User::factory()->create());
         $service = new LogoutService();

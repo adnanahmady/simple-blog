@@ -17,8 +17,7 @@ class ArticleServiceTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    public function it_can_disapprove_an_articles(): void
+    public function test_it_can_disapprove_an_articles(): void
     {
         $statusRepository = new PublicationStatusRepository();
         $repository = new ArticleRepository($statusRepository);
@@ -37,8 +36,7 @@ class ArticleServiceTest extends TestCase
         ]);
     }
 
-    /** @test */
-    public function it_can_approve_an_articles(): void
+    public function test_it_can_approve_an_articles(): void
     {
         $statusRepository = new PublicationStatusRepository();
         $repository = new ArticleRepository($statusRepository);
@@ -57,8 +55,7 @@ class ArticleServiceTest extends TestCase
         ]);
     }
 
-    /** @test */
-    public function it_can_update_article(): void
+    public function test_it_can_update_article(): void
     {
         $statusRepository = new PublicationStatusRepository();
         $repository = new ArticleRepository($statusRepository);
@@ -78,8 +75,7 @@ class ArticleServiceTest extends TestCase
         ]);
     }
 
-    /** @test */
-    public function it_can_create_article(): void
+    public function test_it_can_create_article(): void
     {
         $statusRepository = new PublicationStatusRepository();
         $repository = new ArticleRepository($statusRepository);
@@ -100,8 +96,7 @@ class ArticleServiceTest extends TestCase
         ]);
     }
 
-    /** @test */
-    public function it_should_provide_the_list_of_articles(): void
+    public function test_it_should_provide_the_list_of_articles(): void
     {
         Article::factory()->count(2)->create();
         $repository = new ArticleRepository(

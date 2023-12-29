@@ -33,9 +33,8 @@ class CreateTest extends TestCase
         ];
     }
 
-    /** @test */
     #[DataProvider('dataProviderForDataValidation')]
-    public function data_validation(array $data, string $errorField): void
+    public function test_data_validation(array $data, string $errorField): void
     {
         $this->login();
 
@@ -48,8 +47,7 @@ class CreateTest extends TestCase
         $response->assertSessionHasErrors([$errorField]);
     }
 
-    /** @test */
-    public function only_authenticated_user_can_create_article(): void
+    public function test_only_authenticated_user_can_create_article(): void
     {
         $data = [
             CreateRequest::TITLE => 'my article',
@@ -64,8 +62,7 @@ class CreateTest extends TestCase
         $response->assertRedirect(route('web.welcome'));
     }
 
-    /** @test */
-    public function user_can_create_article(): void
+    public function test_user_can_create_article(): void
     {
         $this->login();
         $statusRepository = new PublicationStatusRepository();

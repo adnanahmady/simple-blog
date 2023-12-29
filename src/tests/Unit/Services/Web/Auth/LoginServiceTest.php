@@ -15,8 +15,7 @@ class LoginServiceTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    public function it_should_attempt_to_login_the_user(): void
+    public function test_it_should_attempt_to_login_the_user(): void
     {
         $user = User::factory()->create([
             User::PASSWORD => $password = 'password',

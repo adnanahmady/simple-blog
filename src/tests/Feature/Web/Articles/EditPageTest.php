@@ -16,8 +16,7 @@ class EditPageTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    public function it_should_show_required_form_to_create(): void
+    public function test_it_should_show_required_form_to_create(): void
     {
         $this->login();
         $article = Article::factory()->create();

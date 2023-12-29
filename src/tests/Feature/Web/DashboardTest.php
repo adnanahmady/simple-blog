@@ -16,8 +16,7 @@ class DashboardTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    public function it_should_show_the_list_of_articles(): void
+    public function test_it_should_show_the_list_of_articles(): void
     {
         $this->login();
         $article = Article::factory()->approved()->create();
@@ -38,16 +37,15 @@ class DashboardTest extends TestCase
         }
     }
 
-    /** @test */
-    public function only_authenticated_users_should_be_able_to_see_it(): void
+    // phpcs:ignore
+    public function test_only_authenticated_users_should_be_able_to_see_it(): void
     {
         $response = $this->get(route('web.dashboard'));
 
         $response->assertRedirect();
     }
 
-    /** @test */
-    public function it_should_be_available(): void
+    public function test_it_should_be_available(): void
     {
         $this->actingAs(User::factory()->create());
 

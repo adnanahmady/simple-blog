@@ -16,8 +16,7 @@ class ShowPageTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    public function only_authorized_users_can_view_it(): void
+    public function test_only_authorized_users_can_view_it(): void
     {
         $article = Article::factory()->create();
 
@@ -26,8 +25,7 @@ class ShowPageTest extends TestCase
         $response->assertRedirect(route('web.welcome'));
     }
 
-    /** @test */
-    public function it_should_show_required_form_to_create(): void
+    public function test_it_should_show_required_form_to_create(): void
     {
         $this->login();
         $articles = Article::factory()->approved()->count(3)->create();

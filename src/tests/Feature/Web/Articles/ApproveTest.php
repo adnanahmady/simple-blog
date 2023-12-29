@@ -15,8 +15,7 @@ class ApproveTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    public function only_admin_can_approve_or_disapprove_an_article(): void
+    public function test_only_admin_can_approve_or_disapprove_an_article(): void
     {
         $this->withoutExceptionHandling();
         $this->login();
@@ -41,9 +40,8 @@ class ApproveTest extends TestCase
         ];
     }
 
-    /** @test */
     #[DataProvider('dataProviderForDataValidation')]
-    public function data_validation(array $data, string $errorField): void
+    public function test_data_validation(array $data, string $errorField): void
     {
         $this->adminLogin();
         $article = Article::factory()->create();
@@ -57,8 +55,7 @@ class ApproveTest extends TestCase
         $response->assertSessionHasErrors([$errorField]);
     }
 
-    /** @test */
-    public function an_article_can_get_disapproved(): void
+    public function test_an_article_can_get_disapproved(): void
     {
         $this->adminLogin();
         $statusRepository = new PublicationStatusRepository();
@@ -76,8 +73,7 @@ class ApproveTest extends TestCase
         ]);
     }
 
-    /** @test */
-    public function an_article_can_get_approved_to_publish(): void
+    public function test_an_article_can_get_approved_to_publish(): void
     {
         $this->adminLogin();
         $statusRepository = new PublicationStatusRepository();

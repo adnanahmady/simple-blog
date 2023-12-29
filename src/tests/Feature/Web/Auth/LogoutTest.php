@@ -16,16 +16,14 @@ class LogoutTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    public function only_authorized_users_can_logout(): void
+    public function test_only_authorized_users_can_logout(): void
     {
         $response = $this->post(route('web.logout'));
 
         $response->assertRedirect(route('web.welcome'));
     }
 
-    /** @test */
-    public function user_can_logout(): void
+    public function test_user_can_logout(): void
     {
         $this->actingAs(User::factory()->create());
 

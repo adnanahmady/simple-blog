@@ -58,7 +58,7 @@ return $config->setRules([
     'array_syntax' => ['syntax' => 'short'],
     'array_indentation' => true,
     'no_multiline_whitespace_around_double_arrow' => true,
-    'php_unit_test_annotation' => ['style' => 'annotation'],
+    'php_unit_test_annotation' => ['style' => 'prefix'],
     'single_blank_line_at_eof' => true,
     'multiline_comment_opening_closing' => true,
     'phpdoc_line_span' => ['method' => 'single'],

@@ -17,8 +17,7 @@ class DeleteTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    public function only_admin_can_delete_an_article(): void
+    public function test_only_admin_can_delete_an_article(): void
     {
         $this->withoutExceptionHandling();
         $this->login();
@@ -31,8 +30,8 @@ class DeleteTest extends TestCase
         );
     }
 
-    /** @test */
-    public function it_should_trash_the_article_instead_of_deleting_it(): void
+    // phpcs:ignore
+    public function test_it_should_trash_the_article_instead_of_deleting_it(): void
     {
         $this->adminLogin();
         $article = Article::factory()->create();
@@ -50,8 +49,7 @@ class DeleteTest extends TestCase
         ]);
     }
 
-    /** @test */
-    public function it_should_delete_specified_article(): void
+    public function test_it_should_delete_specified_article(): void
     {
         $this->adminLogin();
         $article = Article::factory()->create();
