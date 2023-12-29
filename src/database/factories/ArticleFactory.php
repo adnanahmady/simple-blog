@@ -3,8 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\Article;
-use App\Models\PublicationStatus;
 use App\Models\User;
+use App\Repositories\PublicationStatusRepository;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -23,8 +23,16 @@ class ArticleFactory extends Factory
             Article::TITLE => fake()->text(maxNbChars: 20),
             Article::CONTENT => fake()->text(),
             Article::AUTHOR => User::factory(),
-            Article::STATUS => PublicationStatus::factory(),
-            Article::PUBLICATION_DATE => fake()->dateTime(),
+            Article::STATUS => (new PublicationStatusRepository())->draft(),
+            Article::PUBLICATION_DATE => null,
         ];
+    }
+
+    public function approved(): static
+    {
+        return $this->state(fn(array $attributes) => [
+            Article::STATUS => (new PublicationStatusRepository())->publish(),
+            Article::PUBLICATION_DATE => fake()->dateTime(),
+        ]);
     }
 }

@@ -14,6 +14,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @method string    name()
  * @method string    email()
  * @method string    password()
+ * @method bool      isAdmin()
  * @method string    rememberToken()
  * @method string    emailVerifiedAt()
  * @method \DateTime createdAt()
@@ -31,6 +32,7 @@ class User extends Authenticatable
     public const NAME = 'name';
     public const EMAIL = 'email';
     public const PASSWORD = 'password';
+    public const IS_ADMIN = 'is_admin';
     public const REMEMBER_TOKEN = 'remember_token';
     public const EMAIL_VERIFIED_AT = 'email_verified_at';
 
@@ -46,6 +48,7 @@ class User extends Authenticatable
         self::NAME,
         self::EMAIL,
         self::PASSWORD,
+        self::IS_ADMIN,
     ];
 
     /**

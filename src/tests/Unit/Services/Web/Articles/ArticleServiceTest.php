@@ -18,6 +18,46 @@ class ArticleServiceTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
+    public function it_can_disapprove_an_articles(): void
+    {
+        $statusRepository = new PublicationStatusRepository();
+        $repository = new ArticleRepository($statusRepository);
+        $service = new ArticleService($repository);
+        $article = Article::factory()->create();
+
+        $service->doApproval(
+            article: $article,
+            isApproved: false
+        );
+
+        $this->assertDatabaseHas(Article::TABLE, [
+            Article::ID => $article->id(),
+            Article::STATUS => $statusRepository->draft()->id(),
+            Article::PUBLICATION_DATE => null,
+        ]);
+    }
+
+    /** @test */
+    public function it_can_approve_an_articles(): void
+    {
+        $statusRepository = new PublicationStatusRepository();
+        $repository = new ArticleRepository($statusRepository);
+        $service = new ArticleService($repository);
+        $article = Article::factory()->create();
+
+        $service->doApproval(
+            article: $article,
+            isApproved: true
+        );
+
+        $this->assertDatabaseHas(Article::TABLE, [
+            Article::ID => $article->id(),
+            Article::STATUS => $statusRepository->publish()->id(),
+            Article::PUBLICATION_DATE => now(),
+        ]);
+    }
+
+    /** @test */
     public function it_can_update_article(): void
     {
         $statusRepository = new PublicationStatusRepository();

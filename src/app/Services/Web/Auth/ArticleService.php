@@ -41,4 +41,15 @@ class ArticleService
             content: $content,
         );
     }
+
+    public function doApproval(
+        Article $article,
+        bool $isApproved
+    ): Article {
+        $isApproved ?
+            $this->repository->approve($article) :
+            $this->repository->disApprove($article);
+
+        return $article->fresh();
+    }
 }

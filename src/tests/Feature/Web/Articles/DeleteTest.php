@@ -2,6 +2,7 @@
 
 namespace Feature\Web\Articles;
 
+use App\Exceptions\AdminRequiredAccessException;
 use App\Http\Controllers\Web\ArticleController;
 use App\Models\Article;
 use App\Models\User;
@@ -17,12 +18,26 @@ class DeleteTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function it_should_trash_the_article_instead_of_deleting_it(): void
+    public function only_admin_can_delete_an_article(): void
     {
+        $this->withoutExceptionHandling();
         $this->login();
         $article = Article::factory()->create();
 
-        $response = $this->delete(
+        $this->expectException(AdminRequiredAccessException::class);
+
+        $this->delete(
+            route('web.articles.delete', $article)
+        );
+    }
+
+    /** @test */
+    public function it_should_trash_the_article_instead_of_deleting_it(): void
+    {
+        $this->adminLogin();
+        $article = Article::factory()->create();
+
+        $this->delete(
             route('web.articles.delete', $article)
         );
 
@@ -38,7 +53,7 @@ class DeleteTest extends TestCase
     /** @test */
     public function it_should_delete_specified_article(): void
     {
-        $this->login();
+        $this->adminLogin();
         $article = Article::factory()->create();
 
         $response = $this->delete(
@@ -54,5 +69,10 @@ class DeleteTest extends TestCase
     public function login(): void
     {
         $this->be(User::factory()->create());
+    }
+
+    public function adminLogin(): void
+    {
+        $this->be(User::factory()->admin()->create());
     }
 }

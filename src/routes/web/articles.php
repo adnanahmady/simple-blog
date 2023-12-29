@@ -20,8 +20,12 @@ Route::post('/articles', [ArticleController::class, 'store'])
     ->name('articles.store');
 Route::put('/articles/{article}', [ArticleController::class, 'update'])
     ->name('articles.update');
+Route::patch('/articles/{article}', [ArticleController::class, 'approval'])
+    ->name('articles.approval')
+    ->middleware('admin');
 Route::delete('/articles/{article}', [ArticleController::class, 'destroy'])
-    ->name('articles.delete');
+    ->name('articles.delete')
+    ->middleware('admin');
 Route::get('/articles/{article}', [ArticleController::class, 'show'])
     ->name('articles.show');
 Route::get('/articles/{article}/edit', [ArticleController::class, 'edit'])

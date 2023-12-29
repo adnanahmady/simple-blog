@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Web\Articles\ApproveRequest;
 use App\Http\Requests\Web\Articles\CreateRequest;
 use App\Http\Requests\Web\Articles\UpdateRequest;
 use App\Models\Article;
@@ -49,6 +50,19 @@ class ArticleController extends Controller
             article: $article,
             title: $request->title(),
             content: $request->content(),
+        );
+
+        return redirect(route('web.dashboard'));
+    }
+
+    public function approval(
+        ApproveRequest $request,
+        Article $article,
+        ArticleService $service
+    ) {
+        $service->doApproval(
+            article: $article,
+            isApproved: $request->isApproved()
         );
 
         return redirect(route('web.dashboard'));

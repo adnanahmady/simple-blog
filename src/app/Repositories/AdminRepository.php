@@ -16,6 +16,7 @@ class AdminRepository
             User::EMAIL => $email,
             User::PASSWORD => $password,
             User::EMAIL_VERIFIED_AT => now(),
+            User::IS_ADMIN => true,
         ]);
     }
 }

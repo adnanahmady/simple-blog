@@ -12,4 +12,11 @@ class PublicationStatusRepository
             PublicationStatus::TITLE => 'draft',
         ]);
     }
+
+    public function publish(): PublicationStatus
+    {
+        return PublicationStatus::firstOrCreate([
+            PublicationStatus::TITLE => 'publish',
+        ]);
+    }
 }

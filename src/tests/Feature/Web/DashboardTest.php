@@ -20,7 +20,7 @@ class DashboardTest extends TestCase
     public function it_should_show_the_list_of_articles(): void
     {
         $this->login();
-        $article = Article::factory()->create();
+        $article = Article::factory()->approved()->create();
         $expectations = [
             $article->title(),
             $article->content(),

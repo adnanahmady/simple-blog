@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Collection;
 class ArticleRepository
 {
     public function __construct(
-        private readonly PublicationStatusRepository $statusService
+        private readonly PublicationStatusRepository $statusRepository
     ) {}
 
     public function get(bool $reverse = false): Collection
@@ -28,7 +28,7 @@ class ArticleRepository
             Article::TITLE => $title,
             Article::CONTENT => $content,
             Article::AUTHOR => $author->id(),
-            Article::STATUS => $this->statusService->draft()->id(),
+            Article::STATUS => $this->statusRepository->draft()->id(),
         ]);
     }
 
@@ -45,5 +45,21 @@ class ArticleRepository
             ]);
 
         return $article->fresh();
+    }
+
+    public function approve(Article $article): bool
+    {
+        return $article->update([
+            Article::STATUS => $this->statusRepository->publish()->id(),
+            Article::PUBLICATION_DATE => now(),
+        ]);
+    }
+
+    public function disApprove(Article $article): bool
+    {
+        return $article->update([
+            Article::STATUS => $this->statusRepository->draft()->id(),
+            Article::PUBLICATION_DATE => null,
+        ]);
     }
 }

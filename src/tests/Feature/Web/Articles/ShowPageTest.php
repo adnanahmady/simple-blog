@@ -30,7 +30,7 @@ class ShowPageTest extends TestCase
     public function it_should_show_required_form_to_create(): void
     {
         $this->login();
-        $articles = Article::factory()->count(3)->create();
+        $articles = Article::factory()->approved()->count(3)->create();
         $expectations = [
             $articles[1]->title(),
             $articles[1]->content(),
