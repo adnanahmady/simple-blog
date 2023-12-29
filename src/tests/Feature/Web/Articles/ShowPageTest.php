@@ -5,6 +5,7 @@ namespace Feature\Web\Articles;
 use App\Http\Controllers\Web\ArticleController;
 use App\Models\Article;
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\CoversFunction;
 use Tests\TestCase;
@@ -13,6 +14,8 @@ use Tests\TestCase;
 #[CoversFunction('show')]
 class ShowPageTest extends TestCase
 {
+    use RefreshDatabase;
+
     /** @test */
     public function only_authorized_users_can_view_it(): void
     {

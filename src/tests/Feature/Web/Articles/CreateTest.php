@@ -5,11 +5,14 @@ namespace Tests\Feature\Web\Articles;
 use App\Http\Requests\Web\Articles\CreateRequest;
 use App\Models\User;
 use App\Repositories\PublicationStatusRepository;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 
 class CreateTest extends TestCase
 {
+    use RefreshDatabase;
+
     public static function dataProviderForDataValidation(): array
     {
         return [

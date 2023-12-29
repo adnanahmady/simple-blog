@@ -6,6 +6,7 @@ use App\Traits\HasConstantAsFieldTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @method int       id()
@@ -16,6 +17,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Article extends Model
 {
     use HasFactory;
+    use SoftDeletes;
     use HasConstantAsFieldTrait;
 
     public const TABLE = 'articles';
@@ -25,6 +27,7 @@ class Article extends Model
     public const AUTHOR = 'author_id';
     public const STATUS = 'status_id';
     public const PUBLICATION_DATE = 'publication_date';
+    public const DELETED_AT = 'deleted_at';
 
     protected $table = self::TABLE;
     protected $primaryKey = self::ID;

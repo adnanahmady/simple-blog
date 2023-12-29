@@ -53,4 +53,11 @@ class ArticleController extends Controller
 
         return redirect(route('web.dashboard'));
     }
+
+    public function destroy(Article $article): RedirectResponse
+    {
+        $article->delete();
+
+        return redirect(route('web.dashboard'));
+    }
 }
